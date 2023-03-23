@@ -1,16 +1,18 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, {Application, Request, Response, NextFunction} from 'express';
 import {errorHandler, notFoundHandler} from "./exceptions/handler";
 import xmlparser from 'express-xml-bodyparser';
+import plateforme_route from "./routes/plateforme_route";
 
 const app: Application = express();
 
 // Middleware pour analyser les requêtes JSON
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(xmlparser());
 
-// Importez et utilisez vos routes ici
-// app.use('/route', yourRoute);
+
+const baseurl = "/api";
+app.use(`${baseurl}/plateforme`, plateforme_route);
 
 
 app.use(notFoundHandler);
